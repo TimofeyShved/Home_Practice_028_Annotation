@@ -10,11 +10,11 @@ public class BookAnnolizator {
         for (Method m : methods){
             if (m.isAnnotationPresent(XMLAtribute.class)){
                 XMLAtribute xmlAtribute = m.getAnnotation(XMLAtribute.class);
-                System.out.println(xmlAtribute.name());
+                System.out.println("search: " + xmlAtribute.name());
             }
             if (m.isAnnotationPresent(XMLElement.class)){
                 XMLElement xmlAtribute = m.getAnnotation(XMLElement.class);
-                System.out.println(xmlAtribute.name());
+                System.out.println("search: " + xmlAtribute.name());
             }
         }
     }

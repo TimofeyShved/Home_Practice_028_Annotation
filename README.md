@@ -32,26 +32,19 @@ ___
 Производитель:
 
 ~~~Java
-@Retention(RetentionPolicy.RUNTIME)
-@interface Repeat {
-    int value();
-}
+public class BookAnnolizator {
 
-class CustomThreadPoolExecutor extends ThreadPoolExecutor {
-    public CustomThreadPoolExecutor(int corePoolSize) {
-        // why Integer.MAX_VALUE, 0m and TimeUnit.MILLISECONDS?
-        // see Executors.newFixedThreadPool(int nThreads)
-        super(corePoolSize, Integer.MAX_VALUE, 0, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<>());
-    }
+    public void annolize(Class<?> clazz){
+        Method[] methods = clazz.getMethods();
 
-    @Override
-    public void execute(Runnable command) {
-        if (command != null) {
-            Class<? extends Runnable> runnableClass = command.getClass();
-            Repeat repeat = runnableClass.getAnnotation(Repeat.class);
-            for (int i = 0; i < (repeat != null ? repeat.value() : 1); i++) {
-                super.execute(command);
+        for (Method m : methods){
+            if (m.isAnnotationPresent(XMLAtribute.class)){
+                XMLAtribute xmlAtribute = m.getAnnotation(XMLAtribute.class);
+                System.out.println(xmlAtribute.name());
+            }
+            if (m.isAnnotationPresent(XMLElement.class)){
+                XMLElement xmlAtribute = m.getAnnotation(XMLElement.class);
+                System.out.println(xmlAtribute.name());
             }
         }
     }
@@ -62,4 +55,4 @@ class CustomThreadPoolExecutor extends ThreadPoolExecutor {
 --------
 
 >- [X] Есть готовое решение 
->- [ ] Свой код написан 
+>- [X] Свой код написан 
